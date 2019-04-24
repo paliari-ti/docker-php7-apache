@@ -13,9 +13,10 @@ RUN apt-get update && apt-get -y install wget bsdtar libaio1 curl \
   && docker-php-ext-configure oci8 --with-oci8=instantclient,/usr/local/instantclient \
   && docker-php-ext-install oci8 \
   && docker-php-ext-install pdo_mysql exif opcache \
-#  && docker-php-ext-install intl soap dom \
-#  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-#  && docker-php-ext-install gd \
+  && apt-get install -y libicu-dev libaio-dev libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev \
+  && docker-php-ext-install intl soap dom \
+  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+  && docker-php-ext-install gd \
   && apt-get purge -y --auto-remove \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \

@@ -2,7 +2,9 @@ FROM php:7.3.4-apache
 
 LABEL maintainer="Marcos Paliari <marcos@paliari.com.br>"
 
-RUN apt-get update && apt-get -y install wget bsdtar libaio1 curl \
+COPY start.sh /start.sh
+
+RUN apt-get update && apt-get -y install wget bsdtar libaio1 curl git zlib1g-dev libzip-dev \
   && wget -qO- https://github.com/paliari/docker-php7-apache/raw/master/oracle/instantclient-basic-linux.x64-12.2.0.1.0.zip | bsdtar -xvf- -C /usr/local \
   && wget -qO- https://github.com/paliari/docker-php7-apache/raw/master/oracle/instantclient-sdk-linux.x64-12.2.0.1.0.zip | bsdtar -xvf- -C /usr/local \
   && wget -qO- https://github.com/paliari/docker-php7-apache/raw/master/oracle/instantclient-sqlplus-linux.x64-12.2.0.1.0.zip | bsdtar -xvf- -C /usr/local \
@@ -17,12 +19,14 @@ RUN apt-get update && apt-get -y install wget bsdtar libaio1 curl \
   && docker-php-ext-install intl soap dom \
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install gd \
+  && docker-php-ext-install zip \
   && apt-get install -y imagemagick \
   && apt-get purge -y --auto-remove \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /etc/apache2/ssl \
   && mkdir -p /var/www/html/public \
+  && chmod +x /start.sh \
   && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ADD ssl/* /etc/apache2/ssl/
@@ -36,3 +40,9 @@ RUN a2enmod ssl headers rewrite \
   && a2ensite default-ssl
 
 EXPOSE 443
+
+WORKDIR /var/www/html
+
+ENTRYPOINT ["docker-php-entrypoint"]
+
+CMD ["/start.sh"]

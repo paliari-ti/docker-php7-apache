@@ -21,7 +21,7 @@ To simply run the container:
 ```
 sudo docker run -d paliari/php7-apache
 
-sduo docker run -p 80:80 -d -e 'WEBROOT=/var/www/html/public' -e 'SET_PHP_INI_ENV=production' -e 'PHP_MEM_LIMIT=20' -e 'PHP_POST_MAX_SIZE=10' -e 'PHP_UPLOAD_MAX_FILESIZE=10' paliari/php-fpm-nginx:latest
+sduo docker run -p 80:80 -d -e 'WEBROOT=/var/www/html/public' -e 'SET_PHP_INI_ENV=production' -e 'PHP_MEM_LIMIT=20' -e 'PHP_POST_MAX_SIZE=10' -e 'PHP_UPLOAD_MAX_FILESIZE=10' paliari/php7-apache:latest
 ```
 
 ### Environments custom
@@ -34,3 +34,30 @@ sduo docker run -p 80:80 -d -e 'WEBROOT=/var/www/html/public' -e 'SET_PHP_INI_EN
 | TIMEZONE | string | UTC | Set custom timezone |
 | SET_PHP_INI_ENV | enum(development, production) | | If defined, create /usr/local/etc/php/php.ini (recommended in production) |
 
+
+The Apache default-ssl.conf makes the require 
+```apacheconfig
+
+IncludeOptional conf-available/ssl-private*.conf
+
+```
+
+For SSL custom config, you can mount the volume 
+
+- /etc/apache2/conf-available/ssl-private<-name>.conf
+
+
+For SSL certificates you must mount the volumes
+- /etc/apache2/ssl/cert.crt
+- /etc/apache2/ssl/cert.key
+- /etc/apache2/ssl/ca.pem
+
+Example:
+```bash
+docker run --vlume ssl.conf:/etc/apache2/conf-available/ssl-private-you-app.conf \
+  --volue your-cert.pem:/etc/apache2/ssl/cert.pem \
+  --volue your-cert.key:/etc/apache2/ssl/cert.key \
+  --volue your-ca.pem:/etc/apache2/ssl/ca.pem \
+  paliari/apache-ssl-php56-oci8:latest
+
+```

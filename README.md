@@ -34,7 +34,6 @@ sduo docker run -p 80:80 -d -e 'WEBROOT=/var/www/html/public' -e 'SET_PHP_INI_EN
 | TIMEZONE | string | UTC | Set custom timezone |
 | SET_PHP_INI_ENV | enum(development, production) | | If defined, create /usr/local/etc/php/php.ini (recommended in production) |
 
-
 The Apache default-ssl.conf makes the require 
 ```apacheconfig
 
@@ -54,10 +53,10 @@ For SSL certificates you must mount the volumes
 
 Example:
 ```bash
-docker run --vlume ssl.conf:/etc/apache2/conf-available/ssl-private-you-app.conf \
-  --volume your-cert.pem:/etc/apache2/ssl/cert.pem \
-  --volume your-cert.key:/etc/apache2/ssl/cert.key \
-  --volume your-ca.pem:/etc/apache2/ssl/ca.pem \
+docker run -v ssl.conf:/etc/apache2/conf-available/ssl-private-you-app.conf \
+  -v your-cert.pem:/etc/apache2/ssl/cert.crt \
+  -v your-cert.key:/etc/apache2/ssl/cert.key \
+  -v your-ca.pem:/etc/apache2/ssl/ca.pem \
   paliari/apache-ssl-php56-oci8:latest
 
 ```

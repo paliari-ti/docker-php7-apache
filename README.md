@@ -61,9 +61,9 @@ docker run -v ssl.conf:/etc/apache2/conf-available/ssl-private-you-app.conf \
 
 ```
 
-## Example
+## Examples
 
-[examples](examples)
+[Examples](https://github.com/paliari/docker-php7-apache/tree/master/examples)
 
 
 Authors

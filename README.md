@@ -6,7 +6,7 @@ Docker image PHP 7 and Apache
 | Docker Tag | Git Release | Apache Version | PHP Version | Debian Version |
 |-----|-------|-----|--------|--------|
 | latest | Master Branch | 2.4.25 | 7.3.5 | GNU/Linux 9 |
-| 1.0.2 or other | Master Branch | 2.4.25 | 7.3.4 | GNU/Linux 9 |
+| <= 1.0.2 | Master Branch | 2.4.25 | 7.3.4 | GNU/Linux 9 |
 
 ### Links
 - [https://github.com/paliari/docker-php7-apache](https://github.com/paliari/docker-php7-apache)

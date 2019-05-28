@@ -35,6 +35,7 @@ sduo docker run -p 80:80 -d -e 'WEBROOT=/var/www/html/public' -e 'SET_PHP_INI_EN
 | PHP_UPLOAD_MAX_FILESIZE | integer | 100 | Define PHP upload max filesize in MB |
 | TIMEZONE | string | UTC | Set custom timezone |
 | SET_PHP_INI_ENV | enum(development, production) | | If defined, create /usr/local/etc/php/php.ini (recommended in production) |
+| CACHE | integer | 1 | Enable or disable opcache |
 
 The Apache default-ssl.conf makes the require 
 ```apacheconfig

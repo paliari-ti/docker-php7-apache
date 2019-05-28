@@ -16,6 +16,11 @@ if [ ! -z "$SET_PHP_INI_ENV" ]; then
     fi
 fi
 
+# Manage php opcache 
+if [ ! -z "$CACHE" ]; then
+  echo "opcache.enable=$CACHE" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+fi
+
 if [ -z "$TIMEZONE" ]; then
 	TIMEZONE=UTC
 fi

@@ -7,9 +7,10 @@ Docker image PHP 7 and Apache
 |-----|-------|-----|--------|--------|
 | latest | Master Branch | 2.4.25 | 7.3.5 | GNU/Linux 9 |
 | <= 1.0.2 | Master Branch | 2.4.25 | 7.3.4 | GNU/Linux 9 |
+| 1.0.0-dev | Master Branch | 2.4.25 | 7.3.5 | GNU/Linux 9 |
 
 ### Links
-- [https://github.com/paliari/docker-php7-apache](https://github.com/paliari/docker-php7-apache)
+- [https://github.com/paliari-ti/docker-php7-apache](https://github.com/paliari-ti/docker-php7-apache)
 - [https://hub.docker.com/r/paliari/php7-apache](https://hub.docker.com/r/paliari/php7-apache)
 
 ## Quick Start
